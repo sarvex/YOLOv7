@@ -45,7 +45,7 @@ def postprocess(num_dets, det_boxes, det_scores, det_classes, img_w, img_h, inpu
         boxes -= np.array([offset_w, offset_h, offset_w, offset_h], dtype=np.float32)
     boxes = boxes.astype(np.int)
 
-    detected_objects = []
-    for box, score, label in zip(boxes, scores, classes):
-        detected_objects.append(BoundingBox(label, score, box[0], box[2], box[1], box[3], img_w, img_h))
-    return detected_objects
+    return [
+        BoundingBox(label, score, box[0], box[2], box[1], box[3], img_w, img_h)
+        for box, score, label in zip(boxes, scores, classes)
+    ]
